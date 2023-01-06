@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import { connectDatabase } from './models/initMongoose.js'
+import { authRouters } from './routers/auth.router.js'
+import { deptRouters } from './routers/dept.router.js'
 
 const app = express()
 
@@ -13,6 +15,9 @@ try {
   console.log(err)
   process.exit()
 }
+
+app.use(authRouters)
+app.use(deptRouters)
 
 app.get('/', (req, res) => {
   return res.send('server is up and running...')

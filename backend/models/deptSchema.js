@@ -6,7 +6,20 @@ const deptSchema = new mongoose.Schema({
   },
   dept: {
     type: String,
+    unique: true,
   },
+  faculty: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Faculty',
+    },
+  ],
+  subjects: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Subject',
+    },
+  ],
 })
 
-const Dept = new mongoose.model('Dept', deptSchema)
+export const Dept = new mongoose.model('Dept', deptSchema)

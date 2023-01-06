@@ -1,9 +1,9 @@
-backend-node/.env
-backend-node/node_modules
-backend-node/uploads
+backend/.env
+backend/node_modules
+backend/uploads
 
 
-frontend-react/node_modules
-frontend-react/build
+frontend/node_modules
+frontend/build
 
 node_modules

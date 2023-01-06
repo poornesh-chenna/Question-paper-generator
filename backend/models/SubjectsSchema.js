@@ -13,7 +13,11 @@ const SubjectSchema = new mongoose.Schema({
   semester: {
     type: String,
   },
-  faculty: [
+  deptId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Dept',
+  },
+  facultyId: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Faculty',

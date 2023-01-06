@@ -13,10 +13,11 @@ const facultySchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  dept: {
+  deptId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Dept',
   },
+
   subjects: [
     {
       type: mongoose.Schema.Types.ObjectId,
