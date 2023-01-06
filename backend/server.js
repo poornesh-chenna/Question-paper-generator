@@ -1,5 +1,7 @@
 import express from 'express'
 import cors from 'cors'
+import dotenv from 'dotenv'
+
 import { connectDatabase } from './models/initMongoose.js'
 import { authRouters } from './routers/auth.router.js'
 import { deptRouters } from './routers/dept.router.js'
@@ -8,7 +10,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-
+dotenv.config()
 try {
   await connectDatabase()
 } catch (err) {
