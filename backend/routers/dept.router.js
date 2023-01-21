@@ -87,4 +87,12 @@ router.get('/departments', async (req, res) => {
   }
 })
 
+router.get('/faculty', async (req, res) => {
+  try {
+    const faculty = await Faculty.find({}).populate('deptId subjects')
+    res.status(200).send(faculty)
+  } catch (err) {
+    res.status(500).send({ message: 'internal server error' })
+  }
+})
 export const deptRouters = router

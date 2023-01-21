@@ -2,9 +2,10 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
-import { connectDatabase } from './models/initMongoose.js'
+import { connectDatabase } from './utils/initMongoose.js'
 import { authRouters } from './routers/auth.router.js'
 import { deptRouters } from './routers/dept.router.js'
+import { facultyRouters } from './routers/faculty.router.js'
 
 const app = express()
 
@@ -20,6 +21,7 @@ try {
 
 app.use(authRouters)
 app.use(deptRouters)
+app.use(facultyRouters)
 
 app.get('/', (req, res) => {
   return res.send('server is up and running...')
