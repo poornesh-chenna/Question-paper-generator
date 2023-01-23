@@ -1,52 +1,60 @@
-import * as React from "react";
-import Backdrop from "@mui/material/Backdrop";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Fade from "@mui/material/Fade";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Inputfield from "./Inputfield";
-import styles from "../styles/login.module.css";
-import { Axios } from "../utils/Axios";
-import { useState } from "react";
+import * as React from 'react'
+import Backdrop from '@mui/material/Backdrop'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
+import Fade from '@mui/material/Fade'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Inputfield from './Inputfield'
+import styles from '../styles/login.module.css'
+import { Axios } from '../utils/Axios'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-};
+}
 function Adddepartment(props) {
-  return <TransitionsModal name={props.name} />;
+  return (
+    <TransitionsModal
+      name={props.name}
+      department={props.department}
+      setdepartment={props.setdepartment}
+      setToggle={props.setToggle}
+    />
+  )
 }
 
 function TransitionsModal(props) {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-  const [department, setdepartment] = useState({
-    deptname: "",
-    dept: "",
-  });
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   // console.log(department);
   const addDepartment = async () => {
     try {
-      const response = await Axios.post("/dept/register", department);
-      console.log(response.data.message);
+      const response = await Axios.post('/dept/register', props.department)
+      props.setToggle((prevState) => !prevState)
+      console.log(response.data.message)
     } catch (err) {
-      console.log(err.response.data.message);
+      console.log(err.response.data.message)
     }
-    // handleClose();
-  };
+    handleClose()
+  }
+
   return (
     <div>
-      <Button onClick={handleOpen}>{props.name}</Button>
+      <Button variant="contained" sx={{ padding: '8px' }} onClick={handleOpen}>
+        {props.name}
+      </Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -66,12 +74,11 @@ function TransitionsModal(props) {
             <br></br>
             <Inputfield
               onChange={(e) =>
-                setdepartment((prevState) => {
-                  console.log(department);
+                props.setdepartment((prevState) => {
                   return {
                     ...prevState,
                     deptname: e.target.value,
-                  };
+                  }
                 })
               }
               name="Enter the department name"
@@ -79,26 +86,22 @@ function TransitionsModal(props) {
             <br></br>
             <Inputfield
               onChange={(e) =>
-                setdepartment((prevState) => {
-                  console.log(department);
+                props.setdepartment((prevState) => {
                   return {
                     ...prevState,
                     dept: e.target.value,
-                  };
+                  }
                 })
               }
               name="Enter dept code"
             />
-            <button
-              onClick={(addDepartment, handleClose)}
-              className={styles.loginbutton}
-            >
+            <button onClick={addDepartment} className={styles.loginbutton}>
               Submit
             </button>
           </Box>
         </Fade>
       </Modal>
     </div>
-  );
+  )
 }
-export default Adddepartment;
+export default Adddepartment

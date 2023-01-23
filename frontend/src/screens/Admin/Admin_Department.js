@@ -1,57 +1,74 @@
-import navWrapper from "../../components/Navbar";
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
+import navWrapper from '../../components/Navbar'
+import * as React from 'react'
+import { styled } from '@mui/material/styles'
+import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import Box from '@mui/material/Box'
 
-import { useNavigate } from "react-router-dom";
-import Adddepartment from "../../components/Adddepartment";
+import { useNavigate } from 'react-router-dom'
+import Adddepartment from '../../components/Adddepartment'
+import { useEffect } from 'react'
+import { Axios } from '../../utils/Axios'
+import { useState } from 'react'
 
-function Admin_Department() {
+function AdminDepartment() {
   const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
-  }));
-  const department = [
-    {
-      name: "Computer Science and Engineering",
-      dept: "CSE",
-    },
-    // {
-    //    name: "Electronics and Communication and Engineering",
-    //    dept: "ECE",
-    // },
-    // {
-    //    name: "Mechanical Engineering",
-    //    dept: "MECH",
-    // },
-    // {
-    //    name: "Electrical and Electronics Engineering",
-    //    dept: "EEE",
-    // },
-  ];
-  const navigate = useNavigate();
+  }))
+  const [newdepartment, setnewDepartment] = useState({
+    deptname: '',
+    dept: '',
+  })
+  const [toggle, setToggle] = useState(false)
+
+  const [departments, setdepartments] = useState(null)
+  useEffect(() => {
+    const fetchDepts = async () => {
+      const depts = await Axios.get('/departments')
+      setdepartments(depts.data)
+    }
+    fetchDepts()
+  }, [toggle])
+
+  const navigate = useNavigate()
   return (
-    <Box sx={{ width: "70%" }}>
-      {<Adddepartment name="Add Department" />}
+    <Box sx={{ width: '70%' }}>
+      {
+        <Adddepartment
+          department={newdepartment}
+          setdepartment={setnewDepartment}
+          setToggle={setToggle}
+          name="Add Department"
+        />
+      }
       <br></br>
       <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {department.map((item, index) => {
-          return (
-            <Grid key={index} item xs={6} sx={{ width: "50px" }}>
-              <Item
-                sx={{ padding: "20px", fontSize: "16px" }}
-                onClick={() => navigate(item.dept)}
-              >
-                {item.name}
-              </Item>
-            </Grid>
-          );
-        })}
+        {departments &&
+          departments.map((item, index) => {
+            return (
+              <Grid key={index} item xs={6} sx={{ width: '50px' }}>
+                <Item
+                  sx={{ padding: '20px', fontSize: '16px' }}
+                  onClick={() =>
+                    navigate(item.dept, {
+                      state: {
+                        subjects: item.subjects,
+                        dept: item.dept,
+                        deptname: item.deptname,
+                        faculty: item.faculty,
+                      },
+                    })
+                  }
+                >
+                  {item.deptname}
+                </Item>
+              </Grid>
+            )
+          })}
         {/* <Grid item xs={6}>
         <Item onClick={()=>navigate('/CSE')}>CSE</Item>
       </Grid>
@@ -66,7 +83,7 @@ function Admin_Department() {
       </Grid> */}
       </Grid>
     </Box>
-  );
+  )
 }
 
-export const dept = navWrapper(<Admin_Department />);
+export const dept = navWrapper(<AdminDepartment />)

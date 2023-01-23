@@ -69,23 +69,17 @@ router.post('/faculty/register', async (req, res) => {
       return
     }
     const { facultyId, name, email, password, dept } = req.body
-    let deptId = await Dept.findOne({ dept: dept })
-
-    deptId = deptId._id
 
     const newFaculty = await new Faculty({
       facultyId,
       name,
       email,
       password,
-      deptId,
+      dept,
     }).save()
 
     // console.log(newFaculty)
-    await Dept.updateOne(
-      { _id: deptId },
-      { $push: { faculty: newFaculty._id } }
-    )
+    await Dept.updateOne({ dept: dept }, { $push: { faculty: newFaculty._id } })
     res.status(200).send({ message: 'new faculty successfully registered' })
   } catch (err) {
     console.log(err)

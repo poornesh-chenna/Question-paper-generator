@@ -13,9 +13,8 @@ const facultySchema = new mongoose.Schema({
   password: {
     type: String,
   },
-  deptId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Dept',
+  dept: {
+    type: String,
   },
 
   subjects: [

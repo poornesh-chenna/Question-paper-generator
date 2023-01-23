@@ -1,15 +1,17 @@
-import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
+import * as React from 'react'
+import { useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import Chip from '@mui/material/Chip'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
 const MenuProps = {
   PaperProps: {
     style: {
@@ -17,9 +19,7 @@ const MenuProps = {
       width: 250,
     },
   },
-};
-
-const names = ["Kasi Viswanath", "K Asha Rani"];
+}
 
 function getStyles(name, personName, theme) {
   return {
@@ -27,23 +27,28 @@ function getStyles(name, personName, theme) {
       personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
-  };
+  }
 }
 
-function MultipleSelectChip() {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+function MultipleSelectChip({ deptDetails, setSubject, subject }) {
+  const theme = useTheme()
+  const [faculty, setfaculty] = useState([])
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+    const { value } = event.target
 
+    setSubject((prev) => ({
+      ...prev,
+      faculty: typeof value === 'string' ? value.split(',') : value,
+    }))
+  }
+
+  useEffect(() => {
+    const faculties = []
+    deptDetails.faculty.forEach((element) => {
+      faculties.push(element.name)
+    }, setfaculty(faculties))
+  }, [])
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
@@ -52,11 +57,13 @@ function MultipleSelectChip() {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={personName}
+          value={subject.faculty}
           onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={
+            <OutlinedInput id="select-multiple-chip" label="Select Faculty" />
+          }
           renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}
@@ -64,19 +71,20 @@ function MultipleSelectChip() {
           )}
           MenuProps={MenuProps}
         >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
+          {faculty &&
+            faculty.map((name, idx) => (
+              <MenuItem
+                key={idx}
+                value={name}
+                style={getStyles(name, subject.faculty, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>
-  );
+  )
 }
 
-export default MultipleSelectChip;
+export default MultipleSelectChip

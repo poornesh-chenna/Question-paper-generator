@@ -35,10 +35,13 @@ router.post('/subject/register', async (req, res) => {
     let deptId = await Dept.findOne({ dept: dept })
     deptId = deptId._id
     // console.log(faculty)
-    let facultyIds = await Faculty.find({ facultyId: { $in: faculty } }).select(
+    let facultyIds = await Faculty.find({ name: { $in: faculty } }).select(
       '_id'
     )
     // facultyIds = facultyIds._id
+    if (!facultyIds) {
+      res.status(403).send({ message: 'Faculties section is empty' })
+    }
     let modifiedFacultyIds = []
     async function getFacultyIds(facultyIds) {
       facultyIds.forEach(async (facultyId) => {
@@ -80,19 +83,21 @@ router.post('/subject/register', async (req, res) => {
 
 router.get('/departments', async (req, res) => {
   try {
-    const depts = await Dept.find({}).populate('faculty subjects')
+    const depts = await Dept.find({})
+      .populate('faculty', 'name')
+      .populate('subjects')
+      .populate({
+        path: 'subjects',
+        populate: {
+          path: 'facultyId',
+          model: 'Faculty',
+          select: { name: 1 },
+        },
+      })
     res.status(200).send(depts)
   } catch (err) {
-    res.status(500).send({ message: 'internal server error' })
+    res.status(500).send({ message: 'internal server error', err })
   }
 })
 
-router.get('/faculty', async (req, res) => {
-  try {
-    const faculty = await Faculty.find({}).populate('deptId subjects')
-    res.status(200).send(faculty)
-  } catch (err) {
-    res.status(500).send({ message: 'internal server error' })
-  }
-})
 export const deptRouters = router

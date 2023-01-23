@@ -1,15 +1,18 @@
-import * as React from "react";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
+import * as React from 'react'
+import { useTheme } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
+import Chip from '@mui/material/Chip'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { Axios } from '../utils/Axios'
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
 const MenuProps = {
   PaperProps: {
     style: {
@@ -17,9 +20,7 @@ const MenuProps = {
       width: 250,
     },
   },
-};
-
-const names = ["CSE", "ECE"];
+}
 
 function getStyles(name, personName, theme) {
   return {
@@ -27,56 +28,56 @@ function getStyles(name, personName, theme) {
       personName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
-  };
+  }
 }
 
-function MultipleSelectChip() {
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+function MultipleSelectChip({ facultyDetails, setfacultyDetails, settoggle }) {
+  const theme = useTheme()
+  const [departments, setdepartments] = useState([])
+  useEffect(() => {
+    const temp = []
+    const fetchDepts = async () => {
+      const depts = await Axios.get('/departments')
+      depts.data.forEach((item) => {
+        temp.push(item.dept)
+      }, setdepartments(temp))
+    }
+    fetchDepts()
+  }, [])
 
   const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
+    const { value } = event.target
+    setfacultyDetails({ ...facultyDetails, dept: value })
+  }
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-chip-label">Select Subjects</InputLabel>
-        <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
-        >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">
+            Select Department
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={facultyDetails.dept}
+            label="Select Department"
+            onChange={handleChange}
+          >
+            {departments.map((name) => (
+              <MenuItem
+                key={name}
+                value={name}
+                style={getStyles(name, facultyDetails.dept, theme)}
+              >
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
     </div>
-  );
+  )
 }
 
-export default MultipleSelectChip;
+export default MultipleSelectChip
