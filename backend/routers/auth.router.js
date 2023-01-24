@@ -69,7 +69,9 @@ router.post('/faculty/register', async (req, res) => {
       return
     }
     const { facultyId, name, email, password, dept } = req.body
-
+    if (!facultyId && !name && !email && !password && !dept) {
+      return res.status(400).send({ message: 'All fields are required' })
+    }
     const newFaculty = await new Faculty({
       facultyId,
       name,

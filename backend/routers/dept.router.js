@@ -8,6 +8,9 @@ const router = express.Router()
 router.post('/dept/register', async (req, res) => {
   try {
     const { deptname, dept } = req.body
+    if (!deptname && !dept) {
+      return res.status(400).send({ message: 'All fields are required' })
+    }
     const existingDept = await Dept.findOne({ dept: dept })
     if (existingDept) {
       return res.status(402).send({ message: 'Department already exists' })
@@ -28,9 +31,12 @@ router.post('/dept/register', async (req, res) => {
 router.post('/subject/register', async (req, res) => {
   try {
     const { name, code, year, semester, dept, faculty } = req.body
+    if (!name && !code && !year && !semester && !dept && !faculty) {
+      return res.status(400).send({ message: 'All fields are required' })
+    }
     const existingSubject = await Subject.findOne({ code: code })
     if (existingSubject) {
-      return res.status(402).send({ message: 'Subject already exists' })
+      return res.status(402).send({ message: 'Subject code already exists' })
     }
     let deptId = await Dept.findOne({ dept: dept })
     deptId = deptId._id
