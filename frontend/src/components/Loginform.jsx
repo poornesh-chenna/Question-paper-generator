@@ -1,7 +1,7 @@
-import React from 'react'
-import styles from '../styles/login.module.css'
-import Inputfield from './Inputfield'
-function Loginform({ details, setdetails, onClick, heading }) {
+import React from "react";
+import styles from "../styles/login.module.css";
+import Inputfield from "./Inputfield";
+function Loginform({ details, setdetails, onClick, heading, value }) {
   return (
     //         <div className={styles.logindetails}>
     //         <h1 style={{color:"white",textAlign:"center",marginTop:"40px"}}>{props.heading}</h1>
@@ -18,25 +18,25 @@ function Loginform({ details, setdetails, onClick, heading }) {
     //        </div>
 
     //   </div>
-    <div style={{ width: '500px' }} className={styles.inputfields}>
+    <div style={{ width: "500px" }} className={styles.inputfields}>
       <div>{heading}</div>
-      <div style={{ margin: '25px' }}>
-        <p style={{ float: 'left', marginBottom: '10px' }}>Enter username :</p>
+      <div style={{ margin: "25px" }}>
         <Inputfield
+          value={value.email}
           type="email"
           onChange={(e) =>
             setdetails((prev) => ({ ...prev, email: e.target.value }))
           }
-          name="Enter username"
+          name="Enter Email"
         ></Inputfield>
       </div>
       <div>
-        <p style={{ float: 'left', marginBottom: '10px' }}>Enter password:</p>
         <Inputfield
+          value={value.password}
           type="password"
           onChange={(e) =>
             setdetails((prev) => {
-              return { ...prev, password: e.target.value }
+              return { ...prev, password: e.target.value };
             })
           }
           name="Enter password"
@@ -48,6 +48,6 @@ function Loginform({ details, setdetails, onClick, heading }) {
         </button>
       </div>
     </div>
-  )
+  );
 }
-export default Loginform
+export default Loginform;
