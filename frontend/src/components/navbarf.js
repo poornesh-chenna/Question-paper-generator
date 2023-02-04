@@ -18,9 +18,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SchoolIcon from "@mui/icons-material/School";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
-import PersonIcon from "@mui/icons-material/Person";
+import SubjectIcon from "@mui/icons-material/Subject";
 
-import { NavItems } from "../utils/Admin_Navitems";
+import { NavItems } from "../utils/Faculty_Navitems";
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -43,9 +43,8 @@ function ResponsiveDrawer(props) {
           <ListItem key={index} disablePadding>
             <ListItemButton onClick={() => navigate(item.path)}>
               <ListItemIcon>
-                {index == 0 ? <SchoolIcon /> : null}
-                {index == 1 ? <PersonIcon /> : null}
-                {index == 2 ? <DocumentScannerIcon /> : null}
+                {index == 0 ? <SubjectIcon /> : null}
+                {index == 1 ? <DocumentScannerIcon /> : null}
               </ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
@@ -79,7 +78,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            ADMIN LOGIN
+            Faculty Login
           </Typography>
         </Toolbar>
       </AppBar>

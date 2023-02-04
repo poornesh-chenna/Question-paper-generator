@@ -46,7 +46,6 @@ function Login() {
                 !isFaculty?<Loginform heading="FACULTY LOGIN"/>:<Loginform heading="ADMIN LOGIN"/>
 
             }
-            
         </div> */}
       <div
         style={{
