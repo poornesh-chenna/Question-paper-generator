@@ -6,6 +6,7 @@ import { connectDatabase } from './utils/initMongoose.js'
 import { authRouters } from './routers/auth.router.js'
 import { deptRouters } from './routers/dept.router.js'
 import { facultyRouters } from './routers/faculty.router.js'
+import { questionRouter } from './routers/questions.router.js'
 
 const app = express()
 
@@ -22,6 +23,7 @@ try {
 app.use(authRouters)
 app.use(deptRouters)
 app.use(facultyRouters)
+app.use(questionRouter)
 
 app.get('/', (req, res) => {
   return res.send('server is up and running...')

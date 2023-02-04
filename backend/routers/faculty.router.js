@@ -50,7 +50,12 @@ router.post(
         subjectId: subject._id,
         questions: workSheets.Sheet1,
       }
-      // console.log(questionObject)
+
+      const existingDocument = await Question.findOneAndDelete({
+        facultyId: req.userId,
+        subjectId: subject._id,
+      })
+
       const newQuestionFile = await new Question(questionObject).save()
       //   const result = await uploadFile(file)
       // console.log(result)
