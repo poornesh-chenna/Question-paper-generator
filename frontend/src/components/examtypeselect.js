@@ -4,7 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function FacultySubjectSelect() {
+function Examtypeselect() {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event) => {
@@ -23,6 +23,9 @@ function FacultySubjectSelect() {
           autoWidth
           label="Age"
         >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
           <MenuItem value={10}>Twenty</MenuItem>
           <MenuItem value={21}>Twenty one</MenuItem>
           <MenuItem value={22}>Twenty one and a half</MenuItem>
@@ -32,4 +35,4 @@ function FacultySubjectSelect() {
   );
 }
 
-export default FacultySubjectSelect;
+export default Examtypeselect;

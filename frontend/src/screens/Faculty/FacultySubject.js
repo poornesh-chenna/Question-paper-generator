@@ -16,7 +16,8 @@ import Adddepartment from "../../components/Adddepartment";
 import { useEffect } from "react";
 import { Axios } from "../../utils/Axios";
 import { useState } from "react";
-import MultipleSelectChip from "../../components/facultySubjectSelect";
+import FacultySubjectSelect from "../../components/facultySubjectSelect";
+import Examtypeselect from "../../components/examtypeselect";
 import { flexbox } from "@mui/system";
 
 function UploadButtons() {
@@ -45,49 +46,10 @@ function FacultySubject() {
       marginTop: theme.spacing(2),
     },
   }));
-  // const [newdepartment, setnewDepartment] = useState({
-  //   deptname: "",
-  //   dept: "",
-  // });
-  // const [toggle, setToggle] = useState(false);
-
-  // const [departments, setdepartments] = useState(null);
-  // useEffect(() => {
-  //   const fetchDepts = async () => {
-  //     const depts = await Axios.get("/departments");
-  //     setdepartments(depts.data);
-  //   };
-  //   fetchDepts();
-  // }, [toggle]);
 
   const navigate = useNavigate();
   return (
     <Box sx={{ width: "100%" }}>
-      {/* {
-        <Adddepartment
-         department={newdepartment}
-         setdepartment={setnewDepartment}
-         setToggle={setToggle}
-         name="Add Department"
-        />
-      }
-      <br></br>
-      {<Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        {departments &&
-          departments.map((item, index) => {
-            return (
-              <Grid key={index} item xs={6} sx={{ width: "50px" }}>
-                <Item
-                  sx={{ padding: "20px", fontSize: "16px" }}
-                  onClick={() => navigate(item.dept)}
-                >
-                  {item.deptname}
-                </Item>
-              </Grid>
-            );
-          })}
-      </Grid> } */}
-
       <Root>
         <div
           style={{
@@ -98,7 +60,7 @@ function FacultySubject() {
           }}
         >
           <div style={{ marginBottom: "20px" }}>
-            <MultipleSelectChip type="Select Subject"></MultipleSelectChip>
+            <FacultySubjectSelect />
           </div>
         </div>
         <Divider textAlign="left">Upload Questions</Divider>
@@ -146,9 +108,93 @@ function FacultySubject() {
           }}
         >
           <div style={{ marginBottom: "20px" }}>
-            <MultipleSelectChip type="Select type"></MultipleSelectChip>
+            <Examtypeselect />
           </div>
           <Button variant="contained">Generate Question Paper</Button>
+        </div>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <p>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</p>
+            <p>B.TECH V SEMESTER</p>
+            <p>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</p>
+            <p>DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</p>
+            <p>ARTIFICIAL INTELLIGENCE (AI)</p>
+            <p>COMMON FOR CSE & CST</p>
+            <p>(SCHEME-2020)</p>
+          </div>
+          <div>Time :</div>
+          <div>Date : </div>
+          <div style={{ textAlign: "right" }}>Max Marks : 25</div>
+          <p style={{ textAlign: "center" }}>Section - 1</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p>1a. What is AI</p>
+            <p>6M</p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p>1b. What is AI</p>
+            <p>6M</p>
+          </div>
+          <p style={{ textAlign: "center" }}>Section - 2</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p>2a. What is AI</p>
+            <p>6M</p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p>2b. What is AI</p>
+            <p>6M</p>
+          </div>
+          <p style={{ textAlign: "center" }}>Section - 3</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p>3a. What is AI</p>
+            <p>6M</p>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <p>3b. What is AI</p>
+            <p>6M</p>
+          </div>
         </div>
       </Root>
     </Box>
