@@ -46,9 +46,10 @@ router.post('/faculty/login', async (req, res) => {
     }
     if (foundFaculty.password === req.body.password) {
       const userId = foundFaculty._id
+      const jwtToken = signJwtToken(userId)
       return res.status(200).send({
         message: 'successfully logged in',
-        jwtToken: signJwtToken(userId),
+        jwtToken,
       })
     } else {
       return res.status(401).send({ message: 'Invalid password' })

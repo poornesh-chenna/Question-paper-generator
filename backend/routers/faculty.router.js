@@ -21,6 +21,17 @@ router.get('/faculty', async (req, res) => {
   }
 })
 
+router.get('/faculty/details', authorizeUser, async (req, res) => {
+  try {
+    const facultydetails = await Faculty.findById({ _id: req.userId }).populate(
+      'subjects'
+    )
+    res.status(200).send(facultydetails)
+  } catch (err) {
+    res.status(500).send({ message: 'internal server error' })
+  }
+})
+
 router.post(
   '/faculty/questionsUpload',
   authorizeUser,
