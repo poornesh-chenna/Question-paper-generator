@@ -14,18 +14,20 @@ function FacultySubjectSelect() {
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 80 }}>
-        <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-autowidth-label">
+          Select Subject
+        </InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
           value={age}
           onChange={handleChange}
           autoWidth
-          label="Age"
+          label="Select Subject"
         >
-          <MenuItem value={10}>Twenty</MenuItem>
-          <MenuItem value={21}>Twenty one</MenuItem>
-          <MenuItem value={22}>Twenty one and a half</MenuItem>
+          <MenuItem value={10}>M1</MenuItem>
+          <MenuItem value={21}>PPS</MenuItem>
+          <MenuItem value={22}>M2</MenuItem>
         </Select>
       </FormControl>
     </div>

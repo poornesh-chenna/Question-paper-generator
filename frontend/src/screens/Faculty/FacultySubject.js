@@ -32,6 +32,470 @@ function UploadButtons() {
 }
 
 function FacultySubject() {
+  const midquestions = {
+    unit1: [
+      {
+        question: "1oiw",
+        marks: "4",
+      },
+      {
+        question: "1qrwer",
+        marks: "5",
+      },
+    ],
+    unit1c: [
+      {
+        question: "1lfksaj",
+        marks: "4",
+      },
+      {
+        question: "1nm ",
+        marks: "5",
+      },
+    ],
+    unit2: [
+      {
+        question: "2kvsv",
+        marks: "4",
+      },
+      {
+        question: "2fewq",
+        marks: "4",
+      },
+    ],
+    unit2c: [
+      {
+        question: "2fds",
+        marks: "8",
+      },
+    ],
+    unit3: [
+      {
+        question: "3.1jksdn",
+        marks: "4",
+      },
+      {
+        question: "3.1kjsd",
+        marks: "4",
+      },
+    ],
+    unit3c: [
+      {
+        question: "3.1jksdn",
+        marks: "4",
+      },
+      {
+        question: "3.1jksdn",
+        marks: "4",
+      },
+    ],
+  };
+  const mid =
+    `<html>
+  <head>
+    <title>My HTML to Word Document</title>
+  </head>
+  <body>
+     <div>
+      <div style="line-height: 1">
+      <p align="center">
+        <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
+        <br/>
+        <span>B.TECH V SEMESTER</span>
+        <br/>
+        <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+        <br/>
+        <span>DEspanARTMENT OF COMspanUTER SCIENCE AND ENGINEERING</span>
+        <br/>
+        <span>ARTIFICIAL INTELLIGENCE (AI)</span>
+        <br/>
+        <span>COMMON FOR CSE & CST</span>
+        <br/>
+        <span>(SCHEME-2020)</span>
+        </p>
+      </div>
+      <div>Time :</div>
+      <div>Date : </div>
+      <div style= "text-align: right;">Max Marks : 25</div>
+      <p style= "text-align: center;">Section - 1</p>
+     
+      <table style="width:100%;">` +
+    midquestions.unit1
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p align="center">OR</p>
+    <table style="width:100%;">` +
+    midquestions.unit1c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p style= "text-align: center;">Section - 2</p>
+     
+      <table style="width:100%;">` +
+    midquestions.unit2
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p align="center">OR</p>
+    <table style="width:100%;">` +
+    midquestions.unit2c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p style= "text-align: center;">Section - 3</p>
+     
+      <table style="width:100%;">` +
+    midquestions.unit3
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p align="center">OR</p>
+    <table style="width:100%;">` +
+    midquestions.unit3c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+
+    </div>
+  </body>
+</html>`;
+  const semquestions = {
+    unit1: [
+      {
+        question: "1oiw",
+        marks: "6",
+      },
+      {
+        question: "1qrwer",
+        marks: "6",
+      },
+    ],
+    unit1c: [
+      {
+        question: "1lfksaj",
+        marks: "6",
+      },
+      {
+        question: "1nm ",
+        marks: "6",
+      },
+    ],
+    unit2: [
+      {
+        question: "2kvsv",
+        marks: "6",
+      },
+      {
+        question: "2fewq",
+        marks: "6",
+      },
+    ],
+    unit2c: [
+      {
+        question: "2fds",
+        marks: "12",
+      },
+    ],
+    unit3: [
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+      {
+        question: "3.1kjsd",
+        marks: "6",
+      },
+    ],
+    unit3c: [
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+    ],
+    unit4: [
+      {
+        question: "3.1jksdn",
+        marks: "12",
+      },
+    ],
+    unit4c: [
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+    ],
+    unit5: [
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+    ],
+    unit5c: [
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+      {
+        question: "3.1jksdn",
+        marks: "6",
+      },
+    ],
+  };
+  const sem =
+    `<html>
+<head>
+<title>My HTML to Word Document</title>
+</head>
+<body>
+ <div>
+  <div style="line-height: 1">
+  <p align="center">
+    <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
+    <br/>
+    <span>B.TECH V SEMESTER</span>
+    <br/>
+    <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+    <br/>
+    <span>DEspanARTMENT OF COMspanUTER SCIENCE AND ENGINEERING</span>
+    <br/>
+    <span>ARTIFICIAL INTELLIGENCE (AI)</span>
+    <br/>
+    <span>COMMON FOR CSE & CST</span>
+    <br/>
+    <span>(SCHEME-2020)</span>
+    </p>
+  </div>
+  <div>Time :</div>
+  <div>Date : </div>
+  <div style= "text-align: right;">Max Marks : 25</div>
+  <p style= "text-align: center;">Section - 1</p>
+ 
+  <table style="width:100%;">` +
+    semquestions.unit1
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+<p align="center">OR</p>
+<table style="width:100%;">` +
+    semquestions.unit1c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+<p style= "text-align: center;">Section - 2</p>
+ 
+  <table style="width:100%;">` +
+    semquestions.unit2
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+<p align="center">OR</p>
+<table style="width:100%;">` +
+    semquestions.unit2c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+<p style= "text-align: center;">Section - 3</p>
+ 
+  <table style="width:100%;">` +
+    semquestions.unit3
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+<p align="center">OR</p>
+<table style="width:100%;">` +
+    semquestions.unit3c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p style= "text-align: center;">Section - 4</p>
+ 
+  <table style="width:100%;">` +
+    semquestions.unit3
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p align="center">OR</p>
+<table style="width:100%;">` +
+    semquestions.unit4c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p style= "text-align: center;">Section - 5</p>
+ 
+  <table style="width:100%;">` +
+    semquestions.unit5
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+    <p align="center">OR</p>
+<table style="width:100%;">` +
+    semquestions.unit5c
+      .map((item, index) => {
+        return (
+          '<tr style="width:100%; "> <td style="width:80%;">' +
+          item.question +
+          `</td>` +
+          `<td style="width:80%;">` +
+          item.marks +
+          "</td></tr>"
+        );
+      })
+      .join(" ") +
+    `</table>
+
+</div>
+</body>
+</html>`;
+  console.log(sem);
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
     ...theme.typography.body2,
@@ -48,6 +512,7 @@ function FacultySubject() {
   }));
 
   const navigate = useNavigate();
+
   return (
     <Box sx={{ width: "100%" }}>
       <Root>
@@ -113,7 +578,7 @@ function FacultySubject() {
           <Button variant="contained">Generate Question Paper</Button>
         </div>
         <div>
-          <div
+          {/* <div
             style={{
               display: "flex",
               flexDirection: "column",
@@ -194,7 +659,7 @@ function FacultySubject() {
           >
             <p>3b. What is AI</p>
             <p>6M</p>
-          </div>
+          </div> */}
         </div>
       </Root>
     </Box>
