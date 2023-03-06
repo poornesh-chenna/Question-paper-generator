@@ -5,12 +5,12 @@ export const signJwtToken = (userId) => {
     {
       userId,
     },
-    'secret',
+    process.env.JWT_SECRET,
     { expiresIn: '2 days' }
   )
 }
 
 export const verifyTokenAndGetUserId = (token) => {
-  const payload = jwt.verify(token, 'secret')
+  const payload = jwt.verify(token, process.env.JWT_SECRET)
   return payload.userId
 }

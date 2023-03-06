@@ -33,6 +33,105 @@ function UploadButtons() {
 
 function FacultySubject() {
   const [subjects, setsubjects] = useState([])
+  const [paper, setpaper] = useState('')
+
+  const handleDownload = () => {
+    setpaper(
+      <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <p>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</p>
+          <p>B.TECH V SEMESTER</p>
+          <p>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</p>
+          <p>DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</p>
+          <p>ARTIFICIAL INTELLIGENCE (AI)</p>
+          <p>COMMON FOR CSE & CST</p>
+          <p>(SCHEME-2020)</p>
+        </div>
+        <div>Time :</div>
+        <div>Date : </div>
+        <div style={{ textAlign: 'right' }}>Max Marks : 25</div>
+        <p style={{ textAlign: 'center' }}>Section - 1</p>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <p>1a. What is AI</p>
+          <p>6M</p>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <p>1b. What is AI</p>
+          <p>6M</p>
+        </div>
+        <p style={{ textAlign: 'center' }}>Section - 2</p>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <p>2a. What is AI</p>
+          <p>6M</p>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <p>2b. What is AI</p>
+          <p>6M</p>
+        </div>
+        <p style={{ textAlign: 'center' }}>Section - 3</p>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <p>3a. What is AI</p>
+          <p>6M</p>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
+          <p>3b. What is AI</p>
+          <p>6M</p>
+        </div>
+      </div>
+    )
+    // const wordFile = HtmlDocx.asBlob(paper)
+    // const downloadLink = URL.createObjectURL(wordFile)
+
+    // const a = document.createElement('a')
+    // a.href = downloadLink
+    // a.download = 'document.docx'
+    // a.click()
+
+    // URL.revokeObjectURL(downloadLink)
+  }
 
   useEffect(() => {
     const getSubjects = async () => {
@@ -122,90 +221,7 @@ function FacultySubject() {
           </div>
           <Button variant="contained">Generate Question Paper</Button>
         </div>
-        <div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <p>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</p>
-            <p>B.TECH V SEMESTER</p>
-            <p>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</p>
-            <p>DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</p>
-            <p>ARTIFICIAL INTELLIGENCE (AI)</p>
-            <p>COMMON FOR CSE & CST</p>
-            <p>(SCHEME-2020)</p>
-          </div>
-          <div>Time :</div>
-          <div>Date : </div>
-          <div style={{ textAlign: 'right' }}>Max Marks : 25</div>
-          <p style={{ textAlign: 'center' }}>Section - 1</p>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>1a. What is AI</p>
-            <p>6M</p>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>1b. What is AI</p>
-            <p>6M</p>
-          </div>
-          <p style={{ textAlign: 'center' }}>Section - 2</p>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>2a. What is AI</p>
-            <p>6M</p>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>2b. What is AI</p>
-            <p>6M</p>
-          </div>
-          <p style={{ textAlign: 'center' }}>Section - 3</p>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>3a. What is AI</p>
-            <p>6M</p>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <p>3b. What is AI</p>
-            <p>6M</p>
-          </div>
-        </div>
+        <button onClick={handleDownload}>Download Word Document</button>
       </Root>
     </Box>
   )
