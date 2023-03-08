@@ -4,28 +4,43 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
-function FacultySubjectSelect() {
-  const [age, setAge] = React.useState('')
-
+function FacultySubjectSelect({
+  subjects,
+  setSubject,
+  subject,
+  setuploadQP,
+  setgenerateDetails,
+}) {
   const handleChange = (event) => {
-    setAge(event.target.value)
+    setSubject(event.target.value)
+    setuploadQP((prev) => ({
+      ...prev,
+      subjectCode: event.target.value,
+    }))
+    setgenerateDetails((prev) => ({
+      ...prev,
+      subject: event.target.value,
+    }))
   }
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 80 }}>
-        <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-autowidth-label">
+          Select Subject
+        </InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={age}
+          value={subject}
           onChange={handleChange}
           autoWidth
-          label="Age"
+          label="Select Subject"
         >
-          <MenuItem value={10}>Twenty</MenuItem>
-          <MenuItem value={21}>Twenty one</MenuItem>
-          <MenuItem value={22}>Twenty one and a half</MenuItem>
+          {subjects &&
+            subjects.map((subject, idx) => (
+              <MenuItem value={subject.code}>{subject.name}</MenuItem>
+            ))}
         </Select>
       </FormControl>
     </div>

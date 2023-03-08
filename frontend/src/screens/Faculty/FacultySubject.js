@@ -9,137 +9,363 @@ import IconButton from '@mui/material/IconButton'
 import DownloadIcon from '@mui/icons-material/Download'
 
 import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
 
-import { useNavigate } from 'react-router-dom'
-import Adddepartment from '../../components/Adddepartment'
 import { useEffect } from 'react'
 import { Axios } from '../../utils/Axios'
 import { useState } from 'react'
 import FacultySubjectSelect from '../../components/facultySubjectSelect'
 import Examtypeselect from '../../components/examtypeselect'
-import { flexbox } from '@mui/system'
+import { Alert } from '@mui/material'
 
-function UploadButtons() {
-  return (
-    <Stack direction="row" alignItems="center" spacing={2}>
-      <Button variant="contained" component="label">
-        Upload Excel Sheet
-        <input hidden accept="image/*" multiple type="file" />
-      </Button>
-    </Stack>
-  )
+let mid
+function downloadDocxFromBase64(base64String, fileName) {
+  const linkSource = `data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${base64String}`
+  const downloadLink = document.createElement('a')
+  document.body.appendChild(downloadLink)
+
+  downloadLink.href = linkSource
+  downloadLink.download = fileName
+  downloadLink.click()
+  document.body.removeChild(downloadLink)
 }
-
 function FacultySubject() {
-  const [subjects, setsubjects] = useState([])
-  const [paper, setpaper] = useState('')
+  const [midquestions, setmidquestions] = useState()
 
-  const handleDownload = () => {
-    setpaper(
-      <div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <p>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</p>
-          <p>B.TECH V SEMESTER</p>
-          <p>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</p>
-          <p>DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</p>
-          <p>ARTIFICIAL INTELLIGENCE (AI)</p>
-          <p>COMMON FOR CSE & CST</p>
-          <p>(SCHEME-2020)</p>
-        </div>
-        <div>Time :</div>
-        <div>Date : </div>
-        <div style={{ textAlign: 'right' }}>Max Marks : 25</div>
-        <p style={{ textAlign: 'center' }}>Section - 1</p>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>1a. What is AI</p>
-          <p>6M</p>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>1b. What is AI</p>
-          <p>6M</p>
-        </div>
-        <p style={{ textAlign: 'center' }}>Section - 2</p>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>2a. What is AI</p>
-          <p>6M</p>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>2b. What is AI</p>
-          <p>6M</p>
-        </div>
-        <p style={{ textAlign: 'center' }}>Section - 3</p>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>3a. What is AI</p>
-          <p>6M</p>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}
-        >
-          <p>3b. What is AI</p>
-          <p>6M</p>
-        </div>
-      </div>
-    )
-    // const wordFile = HtmlDocx.asBlob(paper)
-    // const downloadLink = URL.createObjectURL(wordFile)
+  const [generateDetails, setgenerateDetails] = useState({
+    subject: '',
+    type: '',
+  })
 
-    // const a = document.createElement('a')
-    // a.href = downloadLink
-    // a.download = 'document.docx'
-    // a.click()
-
-    // URL.revokeObjectURL(downloadLink)
+  async function generate() {
+    setmidquestions(null)
+    setsemquestions(null)
+    console.log(generateDetails)
+    const res = await Axios.post('/generateQP', generateDetails)
+    if (generateDetails.type === 'internal1') setmidquestions(res.data)
+    else if (generateDetails.type === 'internal2') setmidquestions(res.data)
+    else if (generateDetails.type === 'external') setsemquestions(res.data)
   }
 
-  useEffect(() => {
-    const getSubjects = async () => {
-      const res = await Axios.get('/faculty/details')
-      console.log(res)
-    }
-    getSubjects()
-  }, [])
+  async function downloadQP() {
+    const res = await Axios.post('convertToWord', { htmlContent: mid })
+    console.log(res)
+    downloadDocxFromBase64(res.data, 'qp')
+  }
+  if (midquestions)
+    mid =
+      `<html>
+  <head>
+    <title>My HTML to Word Document</title>
+  </head>
+  <body>
+     <div>
+      <div style="line-height: 1">
+      <p align="center">
+        <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
+        <br/>
+        <span>B.TECH V SEMESTER</span>
+        <br/>
+        <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+        <br/>
+        <span>DEspanARTMENT OF COMspanUTER SCIENCE AND ENGINEERING</span>
+        <br/>
+        <span>ARTIFICIAL INTELLIGENCE (AI)</span>
+        <br/>
+        <span>COMMON FOR CSE & CST</span>
+        <br/>
+        <span>(SCHEME-2020)</span>
+        </p>
+      </div>
+      <div>Time :</div>
+      <div>Date : </div>
+      <div style= "text-align: right;">Max Marks : 25</div>
+      <p style= "text-align: center;">Section - 1</p>
+     
+      <table style="width:100%;">` +
+      midquestions.unit1
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;text-align:right">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p align="center">OR</p>
+    <table style="width:100%;">` +
+      midquestions.unit1c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p style= "text-align: center;">Section - 2</p>
+     
+      <table style="width:100%;">` +
+      midquestions.unit2
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p align="center">OR</p>
+    <table style="width:100%;">` +
+      midquestions.unit2c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p style= "text-align: center;">Section - 3</p>
+     
+      <table style="width:100%;">` +
+      midquestions.unit3
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p align="center">OR</p>
+    <table style="width:100%;">` +
+      midquestions.unit3c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+
+    </div>
+  </body>
+</html>`
+
+  const [semquestions, setsemquestions] = useState()
+  let sem
+  if (semquestions)
+    sem =
+      `<html>
+<head>
+<title>My HTML to Word Document</title>
+</head>
+<body>
+ <div>
+  <div style="line-height: 1">
+  <p align="center">
+    <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
+    <br/>
+    <span>B.TECH V SEMESTER</span>
+    <br/>
+    <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+    <br/>
+    <span>DEspanARTMENT OF COMspanUTER SCIENCE AND ENGINEERING</span>
+    <br/>
+    <span>ARTIFICIAL INTELLIGENCE (AI)</span>
+    <br/>
+    <span>COMMON FOR CSE & CST</span>
+    <br/>
+    <span>(SCHEME-2020)</span>
+    </p>
+  </div>
+  <div>Time :</div>
+  <div>Date : </div>
+  <div style= "text-align: right;">Max Marks : 25</div>
+  <p style= "text-align: center;">Section - 1</p>
+ 
+  <table style="width:100%;">` +
+      semquestions.unit1
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+<p align="center">OR</p>
+<table style="width:100%;">` +
+      semquestions.unit1c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+<p style= "text-align: center;">Section - 2</p>
+ 
+  <table style="width:100%;">` +
+      semquestions.unit2
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+<p align="center">OR</p>
+<table style="width:100%;">` +
+      semquestions.unit2c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+<p style= "text-align: center;">Section - 3</p>
+ 
+  <table style="width:100%;">` +
+      semquestions.unit3
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+<p align="center">OR</p>
+<table style="width:100%;">` +
+      semquestions.unit3c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p style= "text-align: center;">Section - 4</p>
+ 
+  <table style="width:100%;">` +
+      semquestions.unit3
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p align="center">OR</p>
+<table style="width:100%;">` +
+      semquestions.unit4c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p style= "text-align: center;">Section - 5</p>
+ 
+  <table style="width:100%;">` +
+      semquestions.unit5
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+    <p align="center">OR</p>
+<table style="width:100%;">` +
+      semquestions.unit5c
+        .map((item, index) => {
+          return (
+            '<tr style="width:100%; "> <td style="width:80%;">' +
+            item.question +
+            `</td>` +
+            `<td style="width:80%;">` +
+            item.marks +
+            '</td></tr>'
+          )
+        })
+        .join(' ') +
+      `</table>
+
+</div>
+</body>
+</html>`
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -156,7 +382,34 @@ function FacultySubject() {
     },
   }))
 
-  const navigate = useNavigate()
+  const [subjects, setsubjects] = useState()
+  const [subject, setSubject] = useState('')
+  const [uploadQP, setuploadQP] = useState({
+    file: null,
+    subjectCode: '',
+  })
+
+  async function getSubjects() {
+    const subjects = await (await Axios.get('/faculty/details')).data.subjects
+    setsubjects(subjects)
+  }
+
+  async function uploadExcel() {
+    console.log(1)
+    const formData = new FormData()
+    formData.append('subjectCode', uploadQP.subjectCode)
+    formData.append('file', uploadQP.file)
+
+    const res = await Axios.post('/faculty/questionsUpload', formData, {
+      'Content-Type': 'multipart/form-data',
+    })
+    console.log(res)
+  }
+
+  useEffect(() => {
+    getSubjects()
+  }, [])
+
   return (
     <Box sx={{ width: '100%' }}>
       <Root>
@@ -169,7 +422,13 @@ function FacultySubject() {
           }}
         >
           <div style={{ marginBottom: '20px' }}>
-            <FacultySubjectSelect />
+            <FacultySubjectSelect
+              subjects={subjects}
+              subject={subject}
+              setSubject={setSubject}
+              setuploadQP={setuploadQP}
+              setgenerateDetails={setgenerateDetails}
+            />
           </div>
         </div>
         <Divider textAlign="left">Upload Questions</Divider>
@@ -182,8 +441,33 @@ function FacultySubject() {
           }}
         >
           <div>
-            <UploadButtons></UploadButtons>
+            <Button variant="contained" component="label">
+              Upload Excel Sheet
+              <input
+                onChange={(e) =>
+                  setuploadQP({ ...uploadQP, file: e.target.files[0] })
+                }
+                hidden
+                type="file"
+              />
+            </Button>
+            {uploadQP.file ? (
+              <div
+                style={{
+                  position: 'absolute',
+                  display: 'inline-block',
+                  marginLeft: '20px',
+                }}
+              >
+                <Alert size="small" severity="success">
+                  succesfully uploaded the file
+                </Alert>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
+          <Button onClick={uploadExcel}>Upload</Button>
           <div
             style={{
               display: 'flex',
@@ -217,11 +501,39 @@ function FacultySubject() {
           }}
         >
           <div style={{ marginBottom: '20px' }}>
-            <Examtypeselect />
+            <Examtypeselect
+              setgenerateDetails={setgenerateDetails}
+              generateDetails={generateDetails}
+            />
           </div>
-          <Button variant="contained">Generate Question Paper</Button>
+          <Button onClick={generate} variant="contained">
+            Generate
+          </Button>
         </div>
-        <button onClick={handleDownload}>Download Word Document</button>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <div
+            style={{ width: '70%' }}
+            dangerouslySetInnerHTML={{ __html: midquestions ? mid : sem }}
+          ></div>
+          {midquestions ? (
+            <Button
+              variant="contained"
+              sx={{ marginTop: '20px' }}
+              onClick={downloadQP}
+            >
+              Download
+            </Button>
+          ) : (
+            ''
+          )}
+        </div>
       </Root>
     </Box>
   )

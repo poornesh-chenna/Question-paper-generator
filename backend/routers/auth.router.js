@@ -1,8 +1,8 @@
 import express from 'express'
 import { Admin } from '../models/adminSchema.js'
-import { Faculty } from '../models/facultySchema.js'
 import { signJwtToken } from '../utils/jwt.js'
 import { Dept } from '../models/deptSchema.js'
+import { Faculty } from '../models/FacultySchema.js'
 
 const router = express.Router()
 

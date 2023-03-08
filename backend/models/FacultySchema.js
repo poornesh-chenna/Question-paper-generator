@@ -23,9 +23,14 @@ const facultySchema = new mongoose.Schema({
       ref: 'Subject',
     },
   ],
-  // questionFile: {
-  //   type: String,
-  // },
+  generatedWords: [
+    {
+      type: String,
+    },
+  ],
+  recentWord: {
+    type: String,
+  },
 })
 
 export const Faculty = mongoose.model('Faculty', facultySchema)

@@ -4,11 +4,20 @@ let questionsTotal
 function assignQuestion(q, unit, unitc, type) {
   let total
   let questionMarks = parseInt(q.marks, 10)
-  if (type === 'internal1' || type === 'internal2') {
+  if (type === 'internal1') {
     if (questionMarks === 6 || questionMarks > 9) {
       return
     }
     if (unit === 'unit1') {
+      total = 9
+    } else {
+      total = 8
+    }
+  } else if (type === 'internal2') {
+    if (questionMarks === 6 || questionMarks > 9) {
+      return
+    }
+    if (unit === 'unit3') {
       total = 9
     } else {
       total = 8

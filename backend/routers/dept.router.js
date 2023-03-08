@@ -1,7 +1,7 @@
 import express from 'express'
 import { Dept } from '../models/deptSchema.js'
 import { Subject } from '../models/SubjectsSchema.js'
-import { Faculty } from '../models/facultySchema.js'
+import { Faculty } from '../models/FacultySchema.js'
 
 const router = express.Router()
 

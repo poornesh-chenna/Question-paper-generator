@@ -1,9 +1,10 @@
 import express from 'express'
-import { Faculty } from '../models/facultySchema.js'
 import { Subject } from '../models/SubjectsSchema.js'
 import { Question } from '../models/questionSchema.js'
 import { authorizeUser } from '../middlewares/authorizeUser.js'
 import { generate } from '../utils/generateQuestons.js'
+import { Faculty } from '../models/FacultySchema.js'
+
 import HtmlDocx from 'html-docx-js'
 import fs from 'fs'
 
@@ -54,16 +55,25 @@ const htmlContent = `
 // const htmlContent = fs.readFileSync("input.html", "utf-8");
 
 // Convert the HTML file to a Word document
-router.get('/convertToWord', async (req, res) => {
-  const wordFile = HtmlDocx.asBlob(htmlContent)
+router.post('/convertToWord', authorizeUser, async (req, res) => {
+  const wordFile = HtmlDocx.asBlob(req.body.htmlContent)
   const wordDoc = await wordFile.arrayBuffer()
   // Write the Word file to disk
 
-  const file = fs.writeFileSync(
-    Date.now() + 'output.docx',
-    Buffer.from(wordDoc)
+  const fileName = Date.now() + 'output.docx'
+  const file = fs.writeFileSync(fileName, Buffer.from(wordDoc))
+  // console.log(fileName)
+  const recentWord = fs.readFileSync(fileName, 'base64')
+  const updateDoc = await Faculty.findOneAndUpdate(
+    { _id: req.userId },
+    {
+      recentWord,
+      $push: { generatedWords: recentWord },
+    }
   )
-  return res.status(200).send(file)
+  // console.log(updateDoc)
+  fs.unlinkSync(fileName)
+  return res.status(200).send(recentWord)
 })
 
 router.post('/generateQP', authorizeUser, async (req, res) => {

@@ -1,5 +1,4 @@
 import express from 'express'
-import { Faculty } from '../models/facultySchema.js'
 import { upload } from '../middlewares/multer.js'
 import { authorizeUser } from '../middlewares/authorizeUser.js'
 import { uploadFile, getFileStream } from '../utils/s3.js'
@@ -9,6 +8,7 @@ import { Question } from '../models/questionSchema.js'
 import { resolve } from 'path'
 import { rejects } from 'assert'
 import { Subject } from '../models/SubjectsSchema.js'
+import { Faculty } from '../models/FacultySchema.js'
 
 const router = express.Router()
 
@@ -39,7 +39,15 @@ router.post(
   async (req, res) => {
     try {
       const { subjectCode } = req.body
+      if (!subjectCode) {
+        return res.status(401).send({ message: 'please select a subject' })
+      }
       const file = req.file
+      if (!file) {
+        return res
+          .status(401)
+          .send({ message: 'please upload the Question sheet' })
+      }
       const workbook = xlsx.readFile(file.path)
       let workSheets = {}
       async function getSheet(workbook) {
@@ -55,7 +63,6 @@ router.post(
       await getSheet(workbook)
 
       const subject = await Subject.findOne({ code: subjectCode })
-
       const questionObject = {
         facultyId: req.userId,
         subjectId: subject._id,
@@ -73,9 +80,7 @@ router.post(
       //  await Faculty.updateOne({ _id: req.userId }, { questionFile: result.Key })
       fs.unlinkSync(file.path)
 
-      res
-        .status(200)
-        .send({ message: 'File successfully uploaded', newQuestionFile })
+      res.status(200).send({ message: 'File successfully uploaded' })
     } catch (err) {
       console.log(err)
       res.status(500).send({ message: 'Internal server error', err })

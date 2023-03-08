@@ -1,38 +1,38 @@
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import * as React from 'react'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select from '@mui/material/Select'
 
-function Examtypeselect() {
-  const [age, setAge] = React.useState("");
-
+function Examtypeselect({ setgenerateDetails, generateDetails }) {
   const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+    setgenerateDetails((prev) => ({
+      ...prev,
+      type: event.target.value,
+    }))
+  }
 
   return (
     <div>
       <FormControl sx={{ m: 1, minWidth: 80 }}>
-        <InputLabel id="demo-simple-select-autowidth-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-autowidth-label">
+          Select Type
+        </InputLabel>
         <Select
           labelId="demo-simple-select-autowidth-label"
           id="demo-simple-select-autowidth"
-          value={age}
+          value={generateDetails.type}
           onChange={handleChange}
           autoWidth
-          label="Age"
+          label="Select Type"
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={10}>Twenty</MenuItem>
-          <MenuItem value={21}>Twenty one</MenuItem>
-          <MenuItem value={22}>Twenty one and a half</MenuItem>
+          <MenuItem value={'internal1'}>Internal-1 Examination</MenuItem>
+          <MenuItem value={'internal2'}>Internal-2 Examination</MenuItem>
+          <MenuItem value={'external'}>External Examination</MenuItem>
         </Select>
       </FormControl>
     </div>
-  );
+  )
 }
 
-export default Examtypeselect;
+export default Examtypeselect
