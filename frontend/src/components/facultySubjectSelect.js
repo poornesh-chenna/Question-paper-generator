@@ -25,7 +25,7 @@ function FacultySubjectSelect({
 
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 80 }}>
+      <FormControl sx={{ m: 1, minWidth: 150 }}>
         <InputLabel id="demo-simple-select-autowidth-label">
           Select Subject
         </InputLabel>

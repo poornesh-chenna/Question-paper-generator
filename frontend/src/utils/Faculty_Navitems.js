@@ -1,10 +1,10 @@
 export const NavItems = [
   {
-    path: "/faculty/subjects",
-    name: "Subjects",
+    path: '/faculty/subjects',
+    name: 'Subjects',
   },
   {
-    path: "/faulty/questionpapers",
-    name: "Question papers",
+    path: '/faculty/questionpapers',
+    name: 'Question papers',
   },
-];
+]

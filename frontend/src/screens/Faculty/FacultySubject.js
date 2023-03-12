@@ -103,7 +103,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -119,7 +119,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -134,7 +134,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -150,7 +150,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -165,7 +165,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -216,7 +216,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -231,7 +231,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -247,7 +247,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -262,7 +262,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -278,7 +278,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -293,7 +293,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -309,7 +309,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -324,7 +324,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -340,7 +340,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
@@ -355,7 +355,7 @@ function FacultySubject() {
             '<tr style="width:100%; "> <td style="width:80%;">' +
             item.question +
             `</td>` +
-            `<td style="width:80%;">` +
+            `<td style="width:80%;text-align:right">` +
             item.marks +
             '</td></tr>'
           )
