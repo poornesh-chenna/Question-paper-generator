@@ -4,8 +4,9 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 
-function Examtypeselect({ setgenerateDetails, generateDetails }) {
+function Examtypeselect({ setgenerateDetails, generateDetails, setquestions }) {
   const handleChange = (event) => {
+    setquestions(null)
     setgenerateDetails((prev) => ({
       ...prev,
       type: event.target.value,

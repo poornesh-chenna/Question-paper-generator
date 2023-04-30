@@ -5,21 +5,21 @@ function assignQuestion(q, unit, unitc, type) {
   let total
   let questionMarks = parseInt(q.marks, 10)
   if (type === 'internal1') {
-    if (questionMarks === 6 || questionMarks > 9) {
-      return
-    }
+    if (questionMarks === 6 || questionMarks > 9) return
     if (unit === 'unit1') {
+      if (questionMarks === 8) return
       total = 9
     } else {
+      if (questionMarks === 5 || questionMarks === 9) return
       total = 8
     }
   } else if (type === 'internal2') {
-    if (questionMarks === 6 || questionMarks > 9) {
-      return
-    }
+    if (questionMarks === 6 || questionMarks > 9) return
     if (unit === 'unit3') {
+      if (questionMarks === 8) return
       total = 9
     } else {
+      if (questionMarks === 5 || questionMarks === 9) return
       total = 8
     }
   } else if (type === 'external') {
@@ -41,7 +41,7 @@ function assignQuestion(q, unit, unitc, type) {
     generatedQuestions[unitc].push({ question: q.question, marks: q.marks })
     questionsTotal[unitc] = questionMarks + parseInt(questionsTotal[unitc], 10)
   }
-  //console.log(unit,questionsTotal)
+  // console.log(type, total, unit, questionsTotal)
 }
 function shuffleArray(array) {
   // console.log(array)
@@ -142,6 +142,19 @@ export async function generate(questions, type) {
       unit5: [],
       unit5c: [],
     }
+    questionsTotal = {
+      unit1: 0,
+      unit1c: 0,
+      unit2: 0,
+      unit2c: 0,
+      unit3: 0,
+      unit3c: 0,
+      unit4: 0,
+      unit4c: 0,
+      unit5: 0,
+      unit5c: 0,
+    }
+
     async function iterateQuestions() {
       return new Promise((resolve, reject) => {
         for (var i = 0; i < questions.length; i++) {

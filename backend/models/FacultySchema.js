@@ -25,7 +25,14 @@ const facultySchema = new mongoose.Schema({
   ],
   generatedWords: [
     {
-      type: String,
+      word: {
+        type: String,
+      },
+      fileName: {
+        type: String,
+      },
+      subject: String,
+      examType: String,
     },
   ],
   recentWord: {

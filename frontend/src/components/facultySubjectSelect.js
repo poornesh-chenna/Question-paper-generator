@@ -10,9 +10,11 @@ function FacultySubjectSelect({
   subject,
   setuploadQP,
   setgenerateDetails,
+  setquestions,
 }) {
   const handleChange = (event) => {
     setSubject(event.target.value)
+    setquestions(null)
     setuploadQP((prev) => ({
       ...prev,
       subjectCode: event.target.value,
