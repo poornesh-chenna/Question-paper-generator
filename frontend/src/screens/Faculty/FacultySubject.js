@@ -31,10 +31,13 @@ function FacultySubject() {
     type: '',
   })
 
+  const [paperDetails, setpaperDetails] = useState()
+
   async function generate() {
     // setquestions(null)
     const res = await Axios.post('/generateQP', generateDetails)
     console.log('resp ', res.data)
+    setpaperDetails(res.data)
     if (generateDetails.type === 'internal1') setquestions(res.data.generated)
     else if (generateDetails.type === 'internal2')
       setquestions(res.data.generated)
@@ -50,6 +53,19 @@ function FacultySubject() {
     console.log(res)
     downloadDocxFromBase64(res.data, 'qp')
   }
+  console.log('paperdetails', paperDetails.subjectId.semester)
+  // const [semester, setSemester] = useState('')
+  // switch (paperDetails.subjectId.semester) {
+  //   case '1':
+  //     setSemester('FIRST')
+  //     break
+  //   default:
+  //     break
+  //   case '4':
+  //     setSemester('FOURTH')
+  //     break
+  // }
+  // console.log(semester)
   if (questions) {
     if (generateDetails.type === 'internal1')
       qp =
@@ -65,13 +81,16 @@ function FacultySubject() {
         <br/>
         <span>B.TECH V SEMESTER</span>
         <br/>
-        <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+        <span>First SESSIONAL EXAMINATION NOVEMBER-2022</span>
         <br/>
-        <span>DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</span>
+        <span>DEPARTMENT OF ` +
+        paperDetails.subjectId.deptId.deptname.toUpperCase() +
+        `</span>
         <br/>
-        <span>ARTIFICIAL INTELLIGENCE (AI)</span>
+        <span>` +
+        paperDetails.subjectId.name.toUpperCase() +
+        `</span>
         <br/>
-        <span>COMMON FOR CSE & CST</span>
         <br/>
         <span>(SCHEME-2020)</span>
         </p>
@@ -192,9 +211,13 @@ function FacultySubject() {
         <br/>
         <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
         <br/>
-        <span>DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING</span>
+        <span>DEPARTMENT OF ` +
+        paperDetails.subjectId.deptId.deptname.toUpperCase() +
+        `</span>
         <br/>
-        <span>ARTIFICIAL INTELLIGENCE (AI)</span>
+        <span>` +
+        paperDetails.subjectId.name.toUpperCase() +
+        `</span>
         <br/>
         <span>COMMON FOR CSE & CST</span>
         <br/>
@@ -312,17 +335,19 @@ function FacultySubject() {
  <div>
   <div style="line-height: 1">
   <p align="center">
-    <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
+    <span>FOUR YEAR B.TECH DEGREE EXAMINATION</span>
     <br/>
-    <span>B.TECH V SEMESTER</span>
+    <span>SIXTH SEMESTER EXAMINATION</span>
+    
     <br/>
-    <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+    <span>DEPARTMENT OF ` +
+        paperDetails.subjectId.deptId.deptname.toUpperCase() +
+        `</span>
     <br/>
-    <span>DEspanARTMENT OF COMspanUTER SCIENCE AND ENGINEERING</span>
+    <span>` +
+        paperDetails.subjectId.name.toUpperCase() +
+        `</span>
     <br/>
-    <span>ARTIFICIAL INTELLIGENCE (AI)</span>
-    <br/>
-    <span>COMMON FOR CSE & CST</span>
     <br/>
     <span>(SCHEME-2020)</span>
     </p>
