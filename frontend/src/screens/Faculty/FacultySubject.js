@@ -32,6 +32,7 @@ function FacultySubject() {
   })
 
   const [paperDetails, setpaperDetails] = useState()
+  const [Date, setDate] = useState('')
 
   async function generate() {
     // setquestions(null)
@@ -53,18 +54,38 @@ function FacultySubject() {
     console.log(res)
     downloadDocxFromBase64(res.data, 'qp')
   }
-  console.log('paperdetails', paperDetails.subjectId.semester)
-  // const [semester, setSemester] = useState('')
-  // switch (paperDetails.subjectId.semester) {
-  //   case '1':
-  //     setSemester('FIRST')
-  //     break
-  //   default:
-  //     break
-  //   case '4':
-  //     setSemester('FOURTH')
-  //     break
-  // }
+  console.log('paperdetails', paperDetails)
+  //const [semester, setSemester] = useState('')
+  let semester = ''
+  if (paperDetails)
+    switch (paperDetails.subjectId.semester) {
+      case '1':
+        semester = 'FIRST'
+        break
+      case '2':
+        semester = 'SECOND'
+        break
+      case '3':
+        semester = 'THIRD'
+        break
+      case '4':
+        semester = 'FOURTH'
+        break
+      case '5':
+        semester = 'FIFTH'
+        break
+      case '6':
+        semester = 'SIXTH'
+        break
+      case '7':
+        semester = 'SEVENTH'
+        break
+      case '8':
+        semester = 'EIGTH'
+        break
+      default:
+        break
+    }
   // console.log(semester)
   if (questions) {
     if (generateDetails.type === 'internal1')
@@ -79,9 +100,11 @@ function FacultySubject() {
       <p align="center">
         <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
         <br/>
-        <span>B.TECH V SEMESTER</span>
+        <span>B.TECH ` +
+        semester +
+        `SEMESTER</span>
         <br/>
-        <span>First SESSIONAL EXAMINATION NOVEMBER-2022</span>
+        <span>FIRST SESSIONAL EXAMINATION</span>
         <br/>
         <span>DEPARTMENT OF ` +
         paperDetails.subjectId.deptId.deptname.toUpperCase() +
@@ -95,16 +118,22 @@ function FacultySubject() {
         <span>(SCHEME-2020)</span>
         </p>
       </div>
-      <div>Time :</div>
-      <div>Date : </div>
+      <div>Time : </div>
+      <div>Date : ` +
+        Date +
+        `</div>
       <div style= "text-align: right;">Max Marks : 25</div>
       <p style= "text-align: center;">Section - 1</p>
      
-      <table style="width:100%;">` +
+      <table style="width:100%;"> 1.` +
         questions.unit1
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
+
             return (
-              '<tr style="width:100%; "> <td style="width:80%;">' +
+              '<tr style="width:93%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -115,11 +144,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-    <table style="width:100%;">` +
+    <table style="width:100%;"> 2. ` +
         questions.unit1c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -131,11 +163,14 @@ function FacultySubject() {
         `</table>
     <p style= "text-align: center;">Section - 2</p>
      
-      <table style="width:100%;">` +
+      <table style="width:100%;">3.` +
         questions.unit2
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -146,11 +181,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-    <table style="width:100%;">` +
+    <table style="width:100%;">4.` +
         questions.unit2c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -162,11 +200,14 @@ function FacultySubject() {
         `</table>
     <p style= "text-align: center;">Section - 3</p>
      
-      <table style="width:100%;">` +
+      <table style="width:100%;">5.` +
         questions.unit3
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -177,11 +218,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-    <table style="width:100%;">` +
+    <table style="width:100%;">6.` +
         questions.unit3c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -207,9 +251,11 @@ function FacultySubject() {
       <p align="center">
         <span>G.PULLA REDDY ENGINEERING COLLEGE(AUTONOMOUS): KURNOOL</span>
         <br/>
-        <span>B.TECH V SEMESTER</span>
+        <span>B.TECH ` +
+        semester +
+        ` SEMESTER</span>
         <br/>
-        <span>SECOND SESSIONAL EXAMINATION NOVEMBER-2022</span>
+        <span>SECOND SESSIONAL EXAMINATION</span>
         <br/>
         <span>DEPARTMENT OF ` +
         paperDetails.subjectId.deptId.deptname.toUpperCase() +
@@ -219,21 +265,25 @@ function FacultySubject() {
         paperDetails.subjectId.name.toUpperCase() +
         `</span>
         <br/>
-        <span>COMMON FOR CSE & CST</span>
-        <br/>
+        
         <span>(SCHEME-2020)</span>
         </p>
       </div>
       <div>Time :</div>
-      <div>Date : </div>
+      <div>Date : ` +
+        Date +
+        `</div>
       <div style= "text-align: right;">Max Marks : 25</div>
       <p style= "text-align: center;">Section - 1</p>
      
-      <table style="width:100%;">` +
+      <table style="width:100%;">1.` +
         questions.unit3
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -244,11 +294,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-    <table style="width:100%;">` +
+    <table style="width:100%;">2.` +
         questions.unit3c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -260,11 +313,14 @@ function FacultySubject() {
         `</table>
     <p style= "text-align: center;">Section - 2</p>
      
-      <table style="width:100%;">` +
+      <table style="width:100%;">3.` +
         questions.unit4
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -275,11 +331,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-    <table style="width:100%;">` +
+    <table style="width:100%;">4.` +
         questions.unit4c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -291,11 +350,14 @@ function FacultySubject() {
         `</table>
     <p style= "text-align: center;">Section - 3</p>
      
-      <table style="width:100%;">` +
+      <table style="width:100%;">5.` +
         questions.unit5
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -306,11 +368,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-    <table style="width:100%;">` +
+    <table style="width:100%;">6.` +
         questions.unit5c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -337,7 +402,9 @@ function FacultySubject() {
   <p align="center">
     <span>FOUR YEAR B.TECH DEGREE EXAMINATION</span>
     <br/>
-    <span>SIXTH SEMESTER EXAMINATION</span>
+    <span>` +
+        semester +
+        ` SEMESTER EXAMINATION</span>
     
     <br/>
     <span>DEPARTMENT OF ` +
@@ -353,15 +420,20 @@ function FacultySubject() {
     </p>
   </div>
   <div>Time :</div>
-  <div>Date : </div>
+  <div>Date : ` +
+        Date +
+        `</div>
   <div style= "text-align: right;">Max Marks : 25</div>
   <p style= "text-align: center;">Section - 1</p>
  
-  <table style="width:100%;">` +
+  <table style="width:100%;">1.` +
         questions.unit1
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -372,11 +444,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
 <p align="center">OR</p>
-<table style="width:100%;">` +
+<table style="width:100%;">2.` +
         questions.unit1c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -388,11 +463,14 @@ function FacultySubject() {
         `</table>
 <p style= "text-align: center;">Section - 2</p>
  
-  <table style="width:100%;">` +
+  <table style="width:100%;">3.` +
         questions.unit2
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -403,11 +481,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
 <p align="center">OR</p>
-<table style="width:100%;">` +
+<table style="width:100%;">4.` +
         questions.unit2c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -419,11 +500,14 @@ function FacultySubject() {
         `</table>
 <p style= "text-align: center;">Section - 3</p>
  
-  <table style="width:100%;">` +
+  <table style="width:100%;">5.` +
         questions.unit3
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -434,11 +518,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
 <p align="center">OR</p>
-<table style="width:100%;">` +
+<table style="width:100%;">6.` +
         questions.unit3c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -450,11 +537,14 @@ function FacultySubject() {
         `</table>
     <p style= "text-align: center;">Section - 4</p>
  
-  <table style="width:100%;">` +
+  <table style="width:100%;">7.` +
         questions.unit3
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -465,11 +555,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-<table style="width:100%;">` +
+<table style="width:100%;">8.` +
         questions.unit4c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -481,11 +574,14 @@ function FacultySubject() {
         `</table>
     <p style= "text-align: center;">Section - 5</p>
  
-  <table style="width:100%;">` +
+  <table style="width:100%;">9.` +
         questions.unit5
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -496,11 +592,14 @@ function FacultySubject() {
           .join(' ') +
         `</table>
     <p align="center">OR</p>
-<table style="width:100%;">` +
+<table style="width:100%;">10.` +
         questions.unit5c
           .map((item, index) => {
+            let q = index === 0 ? 'a' : 'b'
             return (
               '<tr style="width:100%; "> <td style="width:80%;">' +
+              q +
+              '. ' +
               item.question +
               `</td>` +
               `<td style="width:80%;text-align:right">` +
@@ -671,7 +770,26 @@ function FacultySubject() {
               />
             </div>
             <div>
-              <Date />
+              <div>
+                <input
+                  style={{
+                    margin: '0.4rem 0',
+                    borderRadius: '4px',
+                    border: '1px solid #C4C4C4',
+                    padding: '8px',
+                    height: '50px',
+                  }}
+                  type="date"
+                  id="start"
+                  name="trip-start"
+                  // value="2018-07-22"
+                  min="2018-01-01"
+                  max="2030-12-31"
+                  onChange={(e) => {
+                    setDate(e.target.value)
+                  }}
+                />
+              </div>
             </div>
           </div>
 

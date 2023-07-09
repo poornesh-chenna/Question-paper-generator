@@ -90,4 +90,12 @@ router.post('/faculty/register', async (req, res) => {
   }
 })
 
+router.post('/changePassword', async (req, res) => {
+  const { mail, oldPassword, newPassword } = req.body
+  const foundFaculty = await Faculty.findOne({ email: req.body.email })
+  if (!foundFaculty) {
+    res.status(400).send({ message: 'This email is not registered' })
+    return
+  }
+})
 export const authRouters = router
