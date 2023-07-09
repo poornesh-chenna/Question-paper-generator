@@ -1,54 +1,57 @@
-import React, { useState } from 'react'
-import styles from '../styles/login.module.css'
-import Loginform from '../components/Loginform'
-import { Axios } from '../utils/Axios'
-import { useNavigate } from 'react-router-dom'
-import { useSnackbar } from 'notistack'
+import React, { useState } from "react";
+import styles from "../styles/login.module.css";
+import Loginform from "../components/Loginform";
+import { Axios } from "../utils/Axios";
+import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 function Login() {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [isFaculty, setFaculty] = useState(false)
+  const [isFaculty, setFaculty] = useState(false);
   const [details, setdetails] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
   const [facultydetails, setfacultydetails] = useState({
-    email: '',
-    password: '',
-  })
-  const navigate = useNavigate()
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
   const adminLogin = async () => {
     try {
-      const res = await Axios.post('/admin/login', details)
+      const res = await Axios.post("/admin/login", details);
       if (res) {
-        enqueueSnackbar('Successfully Logged in', {
-          variant: 'success',
+        enqueueSnackbar("Successfully Logged in", {
+          variant: "success",
           autoHideDuration: 1000,
-        })
-        navigate('/admin/dept')
+        });
+        navigate("/admin/dept");
       }
     } catch (err) {
-      console.log(err.response.data.message)
-      enqueueSnackbar(err.response.data.message, { variant: 'error' })
+      console.log(err.response.data.message);
+      enqueueSnackbar(err.response.data.message, { variant: "error" });
     }
-  }
+  };
   const facultyLogin = async () => {
     try {
-      const res = await Axios.post('/faculty/login', facultydetails)
-      localStorage.setItem('jwtKey', res.data.jwtToken)
+      const res = await Axios.post("/faculty/login", facultydetails);
+      localStorage.setItem("jwtKey", res.data.jwtToken);
       if (res) {
-        enqueueSnackbar('Successfully Logged in', {
-          variant: 'success',
+        enqueueSnackbar("Successfully Logged in", {
+          variant: "success",
           autoHideDuration: 1000,
-        })
-        navigate('/faculty/subjects')
+        });
+        navigate("/faculty/subjects");
       }
     } catch (err) {
-      console.log(err.response.data.message)
-      enqueueSnackbar(err.response.data.message, { variant: 'error' })
+      console.log(err.response.data.message);
+      enqueueSnackbar(err.response.data.message, { variant: "error" });
     }
-  }
+  };
+  const shadow = {
+    border: "5px solid #1F3E59",
+  };
 
   return (
     <div className={styles.login}>
@@ -64,30 +67,37 @@ function Login() {
         </div> */}
       <div
         style={{
-          marginRight: '220px',
-          color: 'white',
-          fontWeight: 'bold',
-          fontSize: '40px',
+          marginRight: "220px",
+          color: "white",
+          fontWeight: "bold",
+          fontSize: "40px",
         }}
       >
         <span
           style={{
-            backgroundColor: 'white',
-            color: '#27415B',
-            marginBottom: '10px',
+            backgroundColor: "white",
+            color: "#27415B",
+            marginBottom: "10px",
           }}
         >
           AUTOMATIC QUESTION
         </span>
         <br></br>
-        <span style={{ backgroundColor: 'white', color: '#27415B' }}>
+        <span style={{ backgroundColor: "white", color: "#27415B" }}>
           PAPER GENERATOR
         </span>
       </div>
       <div className={styles.tab}>
         <div className={styles.avatar}>
-          <div style={{ marginRight: '145px' }}>
-            <button onClick={() => setFaculty(false)}>
+          <div
+            style={{
+              marginRight: "145px",
+            }}
+          >
+            <button
+              onClick={() => setFaculty(false)}
+              style={!isFaculty ? shadow : null}
+            >
               <img
                 height="100px"
                 width="100px"
@@ -95,10 +105,13 @@ function Login() {
                 alt="admin img"
               ></img>
             </button>
-            <div style={{ textAlign: 'center' }}>Admin</div>
+            <div style={{ textAlign: "center" }}>Admin</div>
           </div>
           <div>
-            <button onClick={() => setFaculty(true)}>
+            <button
+              onClick={() => setFaculty(true)}
+              style={isFaculty ? shadow : null}
+            >
               <img
                 height="100px"
                 width="100px"
@@ -106,7 +119,7 @@ function Login() {
                 alt="teacher img"
               ></img>
             </button>
-            <div style={{ textAlign: 'center' }}>Faculty</div>
+            <div style={{ textAlign: "center" }}>Faculty</div>
           </div>
         </div>
         {!isFaculty ? (
@@ -128,6 +141,6 @@ function Login() {
         )}
       </div>
     </div>
-  )
+  );
 }
-export default Login
+export default Login;

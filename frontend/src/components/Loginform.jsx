@@ -19,18 +19,22 @@ function Loginform({ details, setdetails, onClick, heading, value }) {
 
     //   </div>
     <div style={{ width: "500px" }} className={styles.inputfields}>
+       
       <div>{heading}</div>
+      <form>
       <div style={{ margin: "25px" }}>
         <Inputfield
+          
           value={value.email}
           type="email"
           onChange={(e) =>
             setdetails((prev) => ({ ...prev, email: e.target.value }))
           }
           name="Enter Email"
+          
         ></Inputfield>
       </div>
-      <div>
+      <div style={{ margin: "25px" }}>
         <Inputfield
           value={value.password}
           type="password"
@@ -47,6 +51,7 @@ function Loginform({ details, setdetails, onClick, heading, value }) {
           Login
         </button>
       </div>
+      </form>
     </div>
   );
 }

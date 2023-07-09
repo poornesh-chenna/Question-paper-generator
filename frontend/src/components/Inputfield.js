@@ -11,12 +11,15 @@ function Inputfield(props) {
       }}
     >
       <TextField
+        //error
         onChange={props.onChange}
         fullWidth
         label={props.name}
         id="fullWidth"
         type={props.type}
         value={props.value}
+        required
+        //helperText="Please enter ."
       />
     </Box>
   );
