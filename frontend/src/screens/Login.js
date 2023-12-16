@@ -4,6 +4,23 @@ import Loginform from '../components/Loginform'
 import { Axios } from '../utils/Axios'
 import { useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import { TextField } from '@mui/material'
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+}
 
 function Login() {
   const { enqueueSnackbar } = useSnackbar()
@@ -17,6 +34,16 @@ function Login() {
     email: '',
     password: '',
   })
+  const [passwordReset, setpasswordReset] = useState({
+    mail: '',
+    oldPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  })
+  const [open, setOpen] = React.useState(false)
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   const navigate = useNavigate()
   const adminLogin = async () => {
     try {
@@ -37,31 +64,52 @@ function Login() {
     try {
       const res = await Axios.post('/faculty/login', facultydetails)
       localStorage.setItem('jwtKey', res.data.jwtToken)
+      console.log('a')
       if (res) {
         enqueueSnackbar('Successfully Logged in', {
           variant: 'success',
-          autoHideDuration: 1000,
+          autoHideDuration: 3000,
         })
+        console.log('c')
         navigate('/faculty/subjects')
       }
+      console.log('b')
     } catch (err) {
       console.log(err.response.data.message)
       enqueueSnackbar(err.response.data.message, { variant: 'error' })
     }
   }
+  const handleResetPassword = async () => {
+    try {
+      const res = await Axios.post('/changePassword', passwordReset)
+      if (res) {
+        console.log(res)
+        enqueueSnackbar('Successfully Changed the password', {
+          variant: 'success',
+          autoHideDuration: 3000,
+        })
+        setpasswordReset({
+          mail: '',
+          oldPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        })
+        handleClose()
+      }
+    } catch (err) {
+      console.log(err.response.data.message)
+      enqueueSnackbar(err.response.data.message, {
+        variant: 'error',
+        autoHideDuration: 3000,
+      })
+    }
+  }
+  const shadow = {
+    border: '5px solid #1F3E59',
+  }
 
   return (
     <div className={styles.login}>
-      {/* <div className={styles.tab} >
-            <div className={styles.images}>
-               <button style={{backgroundColor:"white"}} onClick={()=>setFaculty(false)}><Icon link="static\images\faculty.png"></Icon></button>
-               <button style={{backgroundColor:"white"}} onClick={changeState}><Icon link="static\images\faculty.png"></Icon></button>
-            </div>
-            {
-                !isFaculty?<Loginform heading="FACULTY LOGIN"/>:<Loginform heading="ADMIN LOGIN"/>
-
-            }
-        </div> */}
       <div
         style={{
           marginRight: '220px',
@@ -86,8 +134,15 @@ function Login() {
       </div>
       <div className={styles.tab}>
         <div className={styles.avatar}>
-          <div style={{ marginRight: '145px' }}>
-            <button onClick={() => setFaculty(false)}>
+          <div
+            style={{
+              marginRight: '145px',
+            }}
+          >
+            <button
+              onClick={() => setFaculty(false)}
+              style={!isFaculty ? shadow : null}
+            >
               <img
                 height="100px"
                 width="100px"
@@ -98,7 +153,10 @@ function Login() {
             <div style={{ textAlign: 'center' }}>Admin</div>
           </div>
           <div>
-            <button onClick={() => setFaculty(true)}>
+            <button
+              onClick={() => setFaculty(true)}
+              style={isFaculty ? shadow : null}
+            >
               <img
                 height="100px"
                 width="100px"
@@ -118,13 +176,106 @@ function Login() {
             value={details}
           />
         ) : (
-          <Loginform
-            details={facultydetails}
-            setdetails={setfacultydetails}
-            onClick={facultyLogin}
-            heading="FACULTY LOGIN"
-            value={facultydetails}
-          />
+          <div>
+            <Loginform
+              details={facultydetails}
+              setdetails={setfacultydetails}
+              onClick={facultyLogin}
+              heading="FACULTY LOGIN"
+              value={facultydetails}
+            />
+            <div>
+              <Button
+                style={{ display: 'flex', margin: '0 auto' }}
+                onClick={handleOpen}
+              >
+                Change password
+              </Button>
+              <Modal
+                open={open}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Reset password
+                  </Typography>
+
+                  <TextField
+                    onChange={(e) => {
+                      setpasswordReset((prev) => ({
+                        ...prev,
+                        mail: e.target.value,
+                      }))
+                    }}
+                    style={{ margin: '20px 0' }}
+                    fullWidth
+                    label="Email"
+                    type="email"
+                    required
+                  />
+                  <TextField
+                    onChange={(e) => {
+                      setpasswordReset((prev) => ({
+                        ...prev,
+                        oldPassword: e.target.value,
+                      }))
+                    }}
+                    fullWidth
+                    label="Old Password"
+                    type="password"
+                    required
+                  />
+                  <TextField
+                    onChange={(e) => {
+                      setpasswordReset((prev) => ({
+                        ...prev,
+                        newPassword: e.target.value,
+                      }))
+                    }}
+                    style={{ display: 'block', margin: '20px 0' }}
+                    fullWidth
+                    label="New Password"
+                    type="password"
+                    required
+                  />
+                  <TextField
+                    onChange={(e) => {
+                      setpasswordReset((prev) => ({
+                        ...prev,
+                        confirmPassword: e.target.value,
+                      }))
+                    }}
+                    fullWidth
+                    label="Confirm Password"
+                    type="password"
+                    required
+                  />
+                  <div>
+                    <button
+                      style={{
+                        display: 'flex',
+                        margin: '10px auto 0 auto',
+                        padding: '10px 18px',
+                        backgroundColor: '#4E4FEB',
+                        borderRadius: '4px',
+                        color: 'white',
+                        boxShadow:
+                          'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px',
+                      }}
+                      onClick={handleResetPassword}
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </Box>
+              </Modal>
+            </div>
+          </div>
         )}
       </div>
     </div>

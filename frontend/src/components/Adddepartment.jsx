@@ -79,6 +79,7 @@ function TransitionsModal(props) {
               Enter the details
             </Typography>
             <br></br>
+            <form>
             <Inputfield
               onChange={(e) =>
                 props.setdepartment((prevState) => {
@@ -105,6 +106,7 @@ function TransitionsModal(props) {
             <button onClick={addDepartment} className={styles.loginbutton}>
               Submit
             </button>
+            </form>
           </Box>
         </Fade>
       </Modal>
