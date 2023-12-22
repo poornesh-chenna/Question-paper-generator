@@ -35,7 +35,7 @@ function Login() {
     password: '',
   })
   const [passwordReset, setpasswordReset] = useState({
-    mail: '',
+    email: '',
     oldPassword: '',
     newPassword: '',
     confirmPassword: '',
@@ -73,7 +73,6 @@ function Login() {
         console.log('c')
         navigate('/faculty/subjects')
       }
-      console.log('b')
     } catch (err) {
       console.log(err.response.data.message)
       enqueueSnackbar(err.response.data.message, { variant: 'error' })
@@ -81,6 +80,13 @@ function Login() {
   }
   const handleResetPassword = async () => {
     try {
+      if (passwordReset.newPassword !== passwordReset.confirmPassword) {
+        enqueueSnackbar('confirm password does not match with new password', {
+          variant: 'error',
+          autoHideDuration: 3000,
+        })
+        return
+      }
       const res = await Axios.post('/changePassword', passwordReset)
       if (res) {
         console.log(res)
@@ -89,7 +95,7 @@ function Login() {
           autoHideDuration: 3000,
         })
         setpasswordReset({
-          mail: '',
+          email: '',
           oldPassword: '',
           newPassword: '',
           confirmPassword: '',
@@ -195,6 +201,8 @@ function Login() {
                 open={open}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
+                onClose={handleClose}
+                closeAfterTransition
               >
                 <Box sx={style}>
                   <Typography
@@ -209,7 +217,7 @@ function Login() {
                     onChange={(e) => {
                       setpasswordReset((prev) => ({
                         ...prev,
-                        mail: e.target.value,
+                        email: e.target.value,
                       }))
                     }}
                     style={{ margin: '20px 0' }}
@@ -262,7 +270,7 @@ function Login() {
                         margin: '10px auto 0 auto',
                         padding: '10px 18px',
                         backgroundColor: '#4E4FEB',
-                        borderRadius: '4px',
+                        borderRadius: '8px',
                         color: 'white',
                         boxShadow:
                           'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px',

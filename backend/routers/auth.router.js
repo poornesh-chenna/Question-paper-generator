@@ -70,7 +70,14 @@ router.post('/faculty/register', async (req, res) => {
       return
     }
     const { facultyId, name, email, password, dept } = req.body
-    if (!facultyId && !name && !email && !password && !dept) {
+    console.log(req.body, name.length)
+    if (
+      facultyId.length === 0 ||
+      name.length === 0 ||
+      email.length === 0 ||
+      password.length === 0 ||
+      dept.length === 0
+    ) {
       return res.status(400).send({ message: 'All fields are required' })
     }
     const newFaculty = await new Faculty({
@@ -91,11 +98,30 @@ router.post('/faculty/register', async (req, res) => {
 })
 
 router.post('/changePassword', async (req, res) => {
-  const { mail, oldPassword, newPassword } = req.body
-  const foundFaculty = await Faculty.findOne({ email: req.body.email })
-  if (!foundFaculty) {
-    res.status(400).send({ message: 'This email is not registered' })
-    return
+  try {
+    const { email, oldPassword, newPassword } = req.body
+    if (!email || !oldPassword || !newPassword) {
+      res.status(400).send({ message: 'All fields are required' })
+      return
+    }
+    const foundFaculty = await Faculty.findOne({ email: email })
+
+    if (!foundFaculty) {
+      res.status(400).send({ message: 'This email is not registered' })
+      return
+    }
+    if (foundFaculty.password !== oldPassword) {
+      res.status(400).send({ message: 'Old Password does not match' })
+      return
+    }
+    await Faculty.updateOne(
+      { email: email },
+      { $set: { password: newPassword } }
+    )
+    res.status(200).send({ message: 'Password Changed Successfully' })
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({ message: 'internal server error' })
   }
 })
 export const authRouters = router

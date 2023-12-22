@@ -1,11 +1,9 @@
 import navWrapper from '../../components/navbarf'
 import * as React from 'react'
 import { styled } from '@mui/material/styles'
-import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
 import DownloadIcon from '@mui/icons-material/Download'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import Button from '@mui/material/Button'
@@ -16,10 +14,8 @@ import { useState } from 'react'
 import FacultySubjectSelect from '../../components/facultySubjectSelect'
 import Examtypeselect from '../../components/examtypeselect'
 import { Alert } from '@mui/material'
-import FirstComponent from '../../components/Date'
-import { DatePicker } from '@mui/x-date-pickers'
-import Date from '../../components/Date'
 import downloadDocxFromBase64 from '../../utils/downloadWord'
+import { useSnackbar } from 'notistack'
 
 let qp
 
@@ -33,17 +29,23 @@ function FacultySubject() {
 
   const [paperDetails, setpaperDetails] = useState()
   const [Date, setDate] = useState('')
+  const { enqueueSnackbar } = useSnackbar()
 
   async function generate() {
     // setquestions(null)
-    const res = await Axios.post('/generateQP', generateDetails)
-    console.log('resp ', res.data)
-    setpaperDetails(res.data)
-    if (generateDetails.type === 'internal1') setquestions(res.data.generated)
-    else if (generateDetails.type === 'internal2')
-      setquestions(res.data.generated)
-    else if (generateDetails.type === 'external')
-      setquestions(res.data.generated)
+    try {
+      const res = await Axios.post('/generateQP', generateDetails)
+      console.log('resp ', res.data)
+      setpaperDetails(res.data)
+      if (generateDetails.type === 'internal1') setquestions(res.data.generated)
+      else if (generateDetails.type === 'internal2')
+        setquestions(res.data.generated)
+      else if (generateDetails.type === 'external')
+        setquestions(res.data.generated)
+    } catch (err) {
+      console.log(err.response.data.message)
+      enqueueSnackbar(err.response.data.message, { variant: 'error' })
+    }
   }
 
   async function downloadQP() {
@@ -102,7 +104,7 @@ function FacultySubject() {
         <br/>
         <span>B.TECH ` +
         semester +
-        `SEMESTER</span>
+        ` SEMESTER</span>
         <br/>
         <span>FIRST SESSIONAL EXAMINATION</span>
         <br/>

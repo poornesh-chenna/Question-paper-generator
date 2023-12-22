@@ -3,23 +3,8 @@ import styles from '../styles/login.module.css'
 import Inputfield from './Inputfield'
 function Loginform({ details, setdetails, onClick, heading, value }) {
   return (
-    //         <div className={styles.logindetails}>
-    //         <h1 style={{color:"white",textAlign:"center",marginTop:"40px"}}>{props.heading}</h1>
-    //        <div className={styles.inputfields}>
-    //             <div style={{marginBottom:"30px"}}>
-    //                  <input type="text" placeholder="Enter your username : " className={styles.username} ></input>
-    //              </div>
-    //             <div>
-    //                   <input type="password" placeholder="Enter your password : " className={styles.username}></input>
-    //             </div>
-    //        </div>
-    //        <div >
-    //              <button className={styles.loginbutton} >Login</button>
-    //        </div>
-
-    //   </div>
     <div style={{ width: '500px' }} className={styles.inputfields}>
-      <div>{heading}</div>
+      <h2>{heading}</h2>
       <>
         <div style={{ margin: '25px' }}>
           <Inputfield

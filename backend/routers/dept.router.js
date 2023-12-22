@@ -8,7 +8,7 @@ const router = express.Router()
 router.post('/dept/register', async (req, res) => {
   try {
     const { deptname, dept } = req.body
-    if (!deptname && !dept) {
+    if (!deptname || !dept) {
       return res.status(400).send({ message: 'All fields are required' })
     }
     const existingDept = await Dept.findOne({ dept: dept })
@@ -31,7 +31,7 @@ router.post('/dept/register', async (req, res) => {
 router.post('/subject/register', async (req, res) => {
   try {
     const { name, code, year, semester, dept, faculty } = req.body
-    if (!name && !code && !year && !semester && !dept && !faculty) {
+    if (!name || !code || !year || !semester || !dept || faculty.length === 0) {
       return res.status(400).send({ message: 'All fields are required' })
     }
     const existingSubject = await Subject.findOne({ code: code })
@@ -40,7 +40,6 @@ router.post('/subject/register', async (req, res) => {
     }
     let deptId = await Dept.findOne({ dept: dept })
     deptId = deptId._id
-    // console.log(faculty)
     let facultyIds = await Faculty.find({ name: { $in: faculty } }).select(
       '_id'
     )
