@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'https://question-paper-generator-backend.onrender.com',
+  // baseURL: 'http://localhost:5000',
 })
 
 instance.interceptors.request.use((req) => {

@@ -69,6 +69,14 @@ router.post('/faculty/register', async (req, res) => {
         .send({ message: 'This faculty email is already registered' })
       return
     }
+
+    const foundFacultybyID = await Faculty.findOne({
+      facultyId: req.body.facultyId,
+    })
+    if (foundFacultybyID) {
+      res.status(400).send({ message: 'This faculty ID is already registered' })
+      return
+    }
     const { facultyId, name, email, password, dept } = req.body
     console.log(req.body, name.length)
     if (

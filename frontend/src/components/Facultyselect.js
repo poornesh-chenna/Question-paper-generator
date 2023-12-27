@@ -71,7 +71,7 @@ function MultipleSelectChip({ deptDetails, setSubject, subject }) {
           )}
           MenuProps={MenuProps}
         >
-          {faculty &&
+          {faculty.length !== 0 ? (
             faculty.map((name, idx) => (
               <MenuItem
                 key={idx}
@@ -80,7 +80,10 @@ function MultipleSelectChip({ deptDetails, setSubject, subject }) {
               >
                 {name}
               </MenuItem>
-            ))}
+            ))
+          ) : (
+            <MenuItem>No Faculty is available in {deptDetails.dept}</MenuItem>
+          )}
         </Select>
       </FormControl>
     </div>
